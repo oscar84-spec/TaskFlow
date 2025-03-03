@@ -1,0 +1,47 @@
+.footer {
+  width: 100%;
+  padding: 40px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media screen and (min-width: 768px) {
+  .footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr auto auto;
+    grid-template-areas:
+      "task producto recursos empresa"
+      "borde borde borde borde"
+      "derechos derechos derechos derechos";
+    padding: 40px 40px;
+  }
+  .task {
+    grid-area: task;
+  }
+  .producto {
+    grid-area: producto;
+  }
+  .recursos {
+    grid-area: recursos;
+  }
+  .empresa {
+    grid-area: empresa;
+  }
+  .borde {
+    grid-area: borde;
+  }
+  .derechos {
+    grid-area: derechos;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .footer {
+    padding: 40px 64px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .footer {
+    padding: 40px 80px;
+  }
+}
