@@ -1,6 +1,4 @@
 import Header from "../Components/Header";
-import { Link } from "react-router-dom";
-import TabIcon from "../assets/icons/TabIcon";
 import Button from "../Components/Button";
 import Cards from "../Components/Cards";
 import ListIcon from "../assets/icons/ListIcon";
@@ -15,40 +13,7 @@ const Home = () => {
       <div className='fixed inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]'>
         <div className='absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]'></div>
       </div>
-      <Header>
-        <div className='w-full flex items-center justify-between'>
-          <div className='md:flex items-center gap-10'>
-            <Link to='/' className='flex flex-row-reverse items-center gap-2'>
-              <h2 className='hidden md:block font-bold        '>TaskFlow</h2>
-              <i>
-                <TabIcon />
-              </i>
-            </Link>
-            <ul className='hidden md:flex gap-3'>
-              <Link className='text-zinc-500 hover:text-zinc-800'>
-                Funciones
-              </Link>
-              <Link className='text-zinc-500 hover:text-zinc-800'>
-                Soluciones
-              </Link>
-              <Link className='text-zinc-500 hover:text-zinc-800'>Recurso</Link>
-              <Link className='text-zinc-500 hover:text-zinc-800'>Precios</Link>
-            </ul>
-          </div>
-          <div className='flex gap-3'>
-            <Link to='/login'>
-              <Button texto='Iniciar Sesión' clase='border' tipo='button' />
-            </Link>
-            <Link to='/register'>
-              <Button
-                texto='Registro'
-                clase='bg-zinc-800 text-zinc-300'
-                tipo='button'
-              />
-            </Link>
-          </div>
-        </div>
-      </Header>
+      <Header />
       <section className='w-full h-[calc(100vh-48px)] px-2 flex flex-col gap-5 md:px-10 lg:px-16  lg:flex-row lg:justify-between lg:items-center xl:px-20'>
         <div className='mt-5 lg:w-1/2'>
           <div className='flex flex-col '>
