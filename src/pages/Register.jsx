@@ -2,6 +2,8 @@ import Header from "../Components/Header";
 import { TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { validationSignUp } from "../validaciones/signUp";
+import { fetchRegistro } from "../request/signUp";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const {
@@ -10,8 +12,15 @@ const Register = () => {
     formState: { errors },
   } = useForm({});
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    const res = await fetchRegistro(data);
+    if (!res) {
+      alert("Error en el registro");
+    } else {
+      navigate("/dashboard");
+    }
   };
   return (
     <main className='w-full xl:smax-w-[1366px]'>
@@ -23,30 +32,34 @@ const Register = () => {
         >
           <h3 className='text-2xl font-bold text-center'>Registro</h3>
           <div className='flex flex-col gap-3 lg:flex-row'>
-            <TextField
-              label='Nombre'
-              type='text'
-              variant='outlined'
-              className='w-full'
-              {...register("nombre", validationSignUp.nombre)}
-            />
-            {errors.nombre && (
-              <span className='text-red-500 text-sm'>
-                {errors.nombre.message}
-              </span>
-            )}
-            <TextField
-              label='Apellido'
-              type='text'
-              variant='outlined'
-              className='w-full'
-              {...register("apellido", validationSignUp.apellido)}
-            />
-            {errors.apellido && (
-              <span className='text-red-500 text-sm'>
-                {errors.apellido.message}
-              </span>
-            )}
+            <div className='flex flex-col'>
+              <TextField
+                label='Nombre'
+                type='text'
+                variant='outlined'
+                className='w-full'
+                {...register("nombre", validationSignUp.nombre)}
+              />
+              {errors.nombre && (
+                <span className='text-red-500 text-sm'>
+                  {errors.nombre.message}
+                </span>
+              )}
+            </div>
+            <div className='flex flex-col'>
+              <TextField
+                label='Apellido'
+                type='text'
+                variant='outlined'
+                className='w-full'
+                {...register("apellido", validationSignUp.apellido)}
+              />
+              {errors.apellido && (
+                <span className='text-red-500 text-sm'>
+                  {errors.apellido.message}
+                </span>
+              )}
+            </div>
           </div>
           <TextField
             label='Correo electrónico'
@@ -63,11 +76,11 @@ const Register = () => {
             type='password'
             variant='outlined'
             className='w-full'
-            {...register("password", validationSignUp.password)}
+            {...register("contrasenia", validationSignUp.contrasenia)}
           />
-          {errors.password && (
+          {errors.contrasenia && (
             <span className='text-red-500 text-sm'>
-              {errors.password.message}
+              {errors.contrasenia.message}
             </span>
           )}
           <TextField
@@ -75,11 +88,14 @@ const Register = () => {
             type='password'
             variant='outlined'
             className='w-full'
-            {...register("confirmPassword", validationSignUp.confirmPassword)}
+            {...register(
+              "confirmarContrasenia",
+              validationSignUp.confirmarContrasenia
+            )}
           />
-          {errors.confirmPassword && (
+          {errors.confirmarContrasenia && (
             <span className='text-red-500 text-sm'>
-              {errors.confirmPassword.message}
+              {errors.confirmarContrasenia.message}
             </span>
           )}
           <Button type='submit' variant='contained' className='w-full'>

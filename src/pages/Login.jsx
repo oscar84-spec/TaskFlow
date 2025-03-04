@@ -3,6 +3,8 @@ import Header from "../Components/Header";
 import { Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { validationLogin } from "../validaciones/login";
+import { fetchLogin } from "../request/login";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -11,8 +13,15 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    const res = await fetchLogin(data);
+    if (!res) {
+      alert("Error al iniciar sesion");
+    } else {
+      navigate("/dashboard");
+    }
   };
 
   return (
@@ -39,7 +48,7 @@ const Login = () => {
             type='password'
             variant='outlined'
             className='w-full'
-            {...register("password", validationLogin.password)}
+            {...register("contrasenia", validationLogin.password)}
           />
           {errors.password && (
             <span className='text-red-500 text-sm'>

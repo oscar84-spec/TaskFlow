@@ -37,7 +37,7 @@ export const validationSignUp = {
       message: "El email no es valido",
     },
   },
-  password: {
+  contrasenia: {
     required: {
       value: true,
       message: "La contraseña es requerida",
@@ -57,7 +57,7 @@ export const validationSignUp = {
         "La contraseña debe tener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial",
     },
   },
-  confirmPassword: {
+  confirmarContrasenia: {
     required: {
       value: true,
       message: "La confirmación de la contraseña es requerida",
