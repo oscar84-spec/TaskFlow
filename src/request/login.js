@@ -8,6 +8,7 @@ export const fetchLogin = async (data) => {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
+      credentials: "include",
     });
     return res.json();
   } catch (error) {
