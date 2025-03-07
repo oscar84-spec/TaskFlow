@@ -29,9 +29,11 @@ const Dashboard = () => {
   return (
     <main className='w-full h-screen w-max-[1366px] main'>
       <HeaderDash user={user} clase='header' />
-      <section className='dashboard p-3'>
+      <section className='dashboard p-3 flex'>
         <SideBar estilo='sidebar' />
-        <Boards estilo='boards' />
+        <div className='flex flex-1 overflow-x-auto'>
+          <Boards estilo='boards' />
+        </div>
       </section>
     </main>
   );
