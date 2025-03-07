@@ -14,7 +14,7 @@ const HeaderDash = ({ user, clase }) => {
   };
   return (
     <header
-      className={`relative border w-full h-12 flex justify-between items-center px-2 md:px-10 lg:px-16 xl:px-20 ${clase}`}
+      className={`relative w-full h-12 flex justify-between items-center px-2 bg-header text-header-text md:px-10 lg:px-16 xl:px-20 ${clase}`}
     >
       <div className='flex gap-5 md:gap-20'>
         <div>
@@ -28,33 +28,33 @@ const HeaderDash = ({ user, clase }) => {
           </Link>
         </div>
         <ul className='hidden md:flex gap-3 items-center'>
-          <li className='cursor-pointer text-zinc-600 hover:text-zinc-800'>
+          <li className='cursor-pointer text-header-text hover:text-red-500 transition-colors ease-in-out'>
             Tableros
           </li>
-          <li className='cursor-pointer text-zinc-600 hover:text-zinc-800'>
+          <li className='cursor-pointer text-header-text hover:text-red-500 transition-colors ease-in-out'>
             Recientes
           </li>
-          <li className='cursor-pointer text-zinc-600 hover:text-zinc-800'>
+          <li className='cursor-pointer text-header-text hover:text-red-500 transition-colors ease-in-out'>
             Destacados
           </li>
         </ul>
       </div>
-      <div className='flex gap-3 text-zinc-400'>
+      <div className='flex gap-3 text-header-text'>
         <button
           type='button'
-          className='p-1 bg-transparent hover:bg-zinc-200 rounded-md size-7 flex justify-center items-center hover:text-zinc-800 cursor-pointer'
+          className='p-1 bg-transparent hover:bg-icon-hover rounded-md size-7 flex justify-center items-center hover:text-header-text cursor-pointer'
         >
           <Notification />
         </button>
         <button
           type='button'
-          className='p-1 bg-transparent hover:bg-zinc-200 rounded-md size-7 flex justify-center items-center hover:text-zinc-800 cursor-pointer'
+          className='p-1 bg-transparent hover:bg-icon-hover rounded-md size-7 flex justify-center items-center hover:text-header-text cursor-pointer'
         >
           <AddIcon />
         </button>
         <button
           type='button'
-          className='p-1 bg-transparent hover:bg-zinc-200 rounded-md size-7 flex justify-center items-center hover:text-zinc-800 cursor-pointer'
+          className='p-1 bg-transparent hover:bg-icon-hover rounded-md size-7 flex justify-center items-center hover:text-header-text cursor-pointer'
           onClick={handleToggle}
         >
           <IconUser />

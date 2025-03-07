@@ -2,7 +2,7 @@ import Badge from "./Badge";
 
 const TaskCards = () => {
   return (
-    <div className='border border-zinc-400 relative p-2 flex flex-col gap-2 rounded-md'>
+    <div className='border border-zinc-400 bg-bg-cards relative p-2 flex flex-col gap-2 rounded-md'>
       <div className='flex gap-2 flex-wrap'>
         <Badge />
       </div>
