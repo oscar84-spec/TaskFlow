@@ -4,11 +4,30 @@ import StarIcon from "../assets/icons/StarIcon";
 import RightIcon from "../assets/icons/RightIcon";
 import DownIcon from "../assets/icons/DownIcon";
 import AddIcon from "../assets/icons/AddIcon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AddTab from "./AddTab";
+import { Modal } from "@mui/material";
+import { getTabs } from "../request/getTabs";
 
-const SideBar = ({ estilo }) => {
+const SideBar = ({ estilo, user, tablerosData }) => {
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [tablero, setTablero] = useState({});
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
   const handletToggle = () => setOpen(!open);
+
+  useEffect(() => {
+    const data = async () => {
+      try {
+        const res = await getTabs(user._id);
+        setTablero(res);
+      } catch (error) {
+        console.error("Error al obtener tableros:", error);
+      }
+    };
+    data();
+  }, [user._id]);
 
   return (
     <div className={`hidden md:flex flex-col gap-3 p-2 bg-sidebar ${estilo}`}>
@@ -44,18 +63,34 @@ const SideBar = ({ estilo }) => {
           </h2>
         </div>
         {open && (
-          <div className='flex flex-col gap-2 ml-7'>
-            <h2 className='w-full flex items-center text-text h-10 rounded-md p-1 hover:cursor-pointer hover:bg-zinc-700'>
-              Campaña de marketing
-            </h2>
-            <h2 className='w-full flex items-center text-text h-10 rounded-md p-1 hover:cursor-pointer hover:bg-zinc-700'>
-              Plan de producto
-            </h2>
+          <div
+            className={`flex flex-col gap-2 ml-7 overflow-y-auto ${
+              tablero.length > 0 ? "h-28" : "h-0"
+            }`}
+          >
+            {tablero.map((tablero) => (
+              <h2
+                key={tablero._id}
+                onClick={() => tablerosData(tablero._id)}
+                className='w-full flex items-center text-text h-10 rounded-md p-1 hover:cursor-pointer hover:bg-zinc-700'
+              >
+                {tablero.nombre}
+              </h2>
+            ))}
           </div>
         )}
         <div className='w-full h-10 flex items-center p-1 hover:cursor-pointer hover:bg-zinc-700 rounded-md gap-2 text-zinc-400'>
           <AddIcon />
-          <h2 className='text-text font-medium'>Crear nuevo tablero</h2>
+          <button
+            type='button'
+            onClick={handleOpenModal}
+            className='text-text font-medium cursor-pointer'
+          >
+            Crear nuevo tablero
+          </button>
+          <Modal open={openModal} onClose={handleCloseModal}>
+            <AddTab user={user} onClose={handleCloseModal} />
+          </Modal>
         </div>
       </div>
     </div>

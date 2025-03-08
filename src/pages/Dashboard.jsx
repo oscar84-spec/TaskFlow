@@ -8,6 +8,7 @@ import Boards from "../Components/Boards";
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dataTab, setDataTab] = useState([]);
 
   useEffect(() => {
     const data = async () => {
@@ -23,6 +24,8 @@ const Dashboard = () => {
     data();
   }, []);
 
+  const tablerosData = (data) => setDataTab(data);
+
   if (loading) return <p>Cargando...</p>;
   if (!user) return <p>No tienes acceso. Inicia sesión.</p>;
 
@@ -30,9 +33,9 @@ const Dashboard = () => {
     <main className='w-full h-screen w-max-[1366px] main'>
       <HeaderDash user={user} clase='header' />
       <section className='dashboard flex'>
-        <SideBar estilo='sidebar' />
+        <SideBar estilo='sidebar' user={user} tablerosData={tablerosData} />
         <div className='flex flex-1 overflow-x-auto'>
-          <Boards estilo='boards' />
+          <Boards estilo='boards' dataTab={dataTab} />
         </div>
       </section>
     </main>

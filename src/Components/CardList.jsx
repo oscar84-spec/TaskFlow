@@ -1,10 +1,10 @@
 import TaskCards from "./TaskCards";
 
-const CardList = () => {
+const CardList = ({ lista }) => {
   return (
     <div className='w-full h-full shrink-0 bg-[#f1f9f9] rounded-md md:w-72'>
       <div className='flex flex-row justify-between items-center p-3'>
-        <h3 className='font-medium text-lg'>Por hacer</h3>
+        <h3 className='font-medium text-lg'>{lista.titulo}</h3>
         <button
           type='button'
           className='w-max px-2 py-0.5 border rounded-md cursor-pointer'
