@@ -2,20 +2,29 @@ import { TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { addList } from "../request/AddList";
 
-const AddList = ({ dataTab, onClose }) => {
+const AddList = ({ tabId, onClose, onListAdd }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
-    const res = await addList(data, dataTab);
-    if (!res) {
-      alert("Error al agregar lista");
-    } else {
-      window.location.reload();
-      onClose();
+    try {
+      const res = await addList(data, tabId);
+      console.log("res", res);
+      if (!res) {
+        alert("Error al agregar lista");
+      } else {
+        if (onListAdd) {
+          onListAdd(res);
+        }
+        reset();
+        onClose();
+      }
+    } catch (error) {
+      console.error("Error al agregar lista:", error);
     }
   };
 

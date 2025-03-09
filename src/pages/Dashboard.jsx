@@ -35,7 +35,7 @@ const Dashboard = () => {
       <section className='dashboard flex'>
         <SideBar estilo='sidebar' user={user} tablerosData={tablerosData} />
         <div className='flex flex-1 overflow-x-auto'>
-          <Boards estilo='boards' dataTab={dataTab} />
+          <Boards estilo='boards' dataTab={dataTab} user={user} />
         </div>
       </section>
     </main>

@@ -12,7 +12,7 @@ import { getTabs } from "../request/getTabs";
 const SideBar = ({ estilo, user, tablerosData }) => {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [tablero, setTablero] = useState({});
+  const [tablero, setTablero] = useState([]);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   const handletToggle = () => setOpen(!open);
@@ -21,13 +21,29 @@ const SideBar = ({ estilo, user, tablerosData }) => {
     const data = async () => {
       try {
         const res = await getTabs(user._id);
-        setTablero(res);
+        if (Array.isArray(res)) {
+          setTablero(res);
+        } else {
+          console.error("La respuesta de getTabs no es un array:", res);
+          setTablero([]);
+        }
       } catch (error) {
         console.error("Error al obtener tableros:", error);
+        setTablero([]);
       }
     };
-    data();
-  }, [user._id]);
+    if (user && user._id) {
+      data();
+    }
+  }, [user, user._id]);
+
+  const handleTablero = (nuevoTablero) => {
+    if (!nuevoTablero || !nuevoTablero._id) {
+      console.error("El nuevo tablero no tiene un _id válido:", nuevoTablero);
+      return;
+    }
+    setTablero((prevTablero) => [...prevTablero, nuevoTablero]);
+  };
 
   return (
     <div className={`hidden md:flex flex-col gap-3 p-2 bg-sidebar ${estilo}`}>
@@ -65,7 +81,7 @@ const SideBar = ({ estilo, user, tablerosData }) => {
         {open && (
           <div
             className={`flex flex-col gap-2 ml-7 overflow-y-auto ${
-              tablero.length > 0 ? "h-28" : "h-0"
+              tablero.length > 0 ? "h-max max-h-28" : "h-0"
             }`}
           >
             {tablero.map((tablero) => (
@@ -89,7 +105,11 @@ const SideBar = ({ estilo, user, tablerosData }) => {
             Crear nuevo tablero
           </button>
           <Modal open={openModal} onClose={handleCloseModal}>
-            <AddTab user={user} onClose={handleCloseModal} />
+            <AddTab
+              user={user}
+              onClose={handleCloseModal}
+              onTabAdd={handleTablero}
+            />
           </Modal>
         </div>
       </div>

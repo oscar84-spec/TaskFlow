@@ -2,20 +2,29 @@ import { TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { AddTablero } from "../request/agregar_tablero";
 
-const AddTab = ({ user, onClose }) => {
+const AddTab = ({ user, onClose, onTabAdd }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
-    const res = await AddTablero(data, user._id);
-    if (!res) {
-      alert("Error al agregar tablero");
-    } else {
-      window.location.reload();
-      onClose();
+    try {
+      const res = await AddTablero(data, user._id);
+      console.log(res);
+      if (!res) {
+        alert("Error al agregar tablero");
+      } else {
+        if (onTabAdd) {
+          onTabAdd(res);
+        }
+        reset();
+        onClose();
+      }
+    } catch (error) {
+      console.error("Error al agregar tablero:", error);
     }
   };
   return (

@@ -5,7 +5,7 @@ export const addList = async (list, id) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(list, id),
+      body: JSON.stringify(list),
     });
     const data = await response.json();
     return data;
